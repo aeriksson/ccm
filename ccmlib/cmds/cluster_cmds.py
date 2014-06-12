@@ -251,7 +251,7 @@ class ClusterListCmd(Cmd):
 
 class ClusterSwitchCmd(Cmd):
     def description(self):
-        return "Switch of current (active) cluster"
+        return "Switch current (active) cluster"
 
     def get_parser(self):
         usage = "usage: ccm switch [options] cluster_name"
@@ -339,7 +339,7 @@ class ClusterClearCmd(Cmd):
 
 class ClusterLivesetCmd(Cmd):
     def description(self):
-        return "Print a comma-separated list of addresses of running nodes (handful in scripts)"
+        return "Print a comma-separated list of addresses of running nodes (useful in scripts)"
 
     def get_parser(self):
         usage = "usage: ccm liveset [options]"
@@ -378,7 +378,7 @@ class ClusterSetdirCmd(Cmd):
 
 class ClusterClearrepoCmd(Cmd):
     def description(self):
-        return "Cleanup downloaded cassandra sources"
+        return "Remove downloaded Cassandra sources"
 
     def get_parser(self):
         usage = "usage: ccm clearrepo [options]"
@@ -393,7 +393,7 @@ class ClusterClearrepoCmd(Cmd):
 
 class ClusterStartCmd(Cmd):
     def description(self):
-        return "Start all the non started nodes of the current cluster"
+        return "Start all stopped nodes in the current cluster"
 
     def get_parser(self):
         usage = "usage: ccm start [options]"
