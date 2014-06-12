@@ -260,7 +260,7 @@ class ClusterSwitchCmd(Cmd):
     def validate(self, parser, options, args):
         Cmd.validate(self, parser, options, args, cluster_name=True)
         if not os.path.exists(os.path.join(self.path, self.name, 'cluster.conf')):
-            print_("%s does not appear to be a valid cluster (use ccm cluster list to view valid cluster)" % self.name, file=sys.stderr)
+            print_("%s does not appear to be a valid cluster (use ccm list to view valid clusters)" % self.name, file=sys.stderr)
             exit(1)
 
     def run(self):
@@ -301,7 +301,7 @@ class ClusterRemoveCmd(Cmd):
             if not os.path.exists(os.path.join(
                     self.path, self.other_cluster, 'cluster.conf')):
                 print_("%s does not appear to be a valid cluster" \
-                    " (use ccm cluster list to view valid cluster)" \
+                    " (use ccm list to view valid clusters)" \
                     % self.other_cluster, file=sys.stderr)
                 exit(1)
         else:
@@ -396,7 +396,7 @@ class ClusterStartCmd(Cmd):
         return "Start all the non started nodes of the current cluster"
 
     def get_parser(self):
-        usage = "usage: ccm cluster start [options]"
+        usage = "usage: ccm start [options]"
         parser =  self._get_default_parser(usage, self.description())
         parser.add_option('-v', '--verbose', action="store_true", dest="verbose",
             help="Print standard output of Cassandra process", default=False)
@@ -437,7 +437,7 @@ class ClusterStopCmd(Cmd):
         return "Stop all the nodes of the cluster"
 
     def get_parser(self):
-        usage = "usage: ccm cluster stop [options] name"
+        usage = "usage: ccm stop [options] name"
         parser = self._get_default_parser(usage, self.description())
         parser.add_option('-v', '--verbose', action="store_true", dest="verbose",
                 help="Print nodes that were not running", default=False)
@@ -479,17 +479,17 @@ class _ClusterNodetoolCmd(Cmd):
         self.cluster.nodetool(self.nodetool_cmd)
 
 class ClusterFlushCmd(_ClusterNodetoolCmd):
-    usage = "usage: ccm cluster flush [options] name"
+    usage = "usage: ccm flush [options] name"
     nodetool_cmd = 'flush'
     descr_text = "Flush all (running) nodes of the cluster"
 
 class ClusterCompactCmd(_ClusterNodetoolCmd):
-    usage = "usage: ccm cluster compact [options] name"
+    usage = "usage: ccm compact [options] name"
     nodetool_cmd = 'compact'
     descr_text = "Compact all (running) node of the cluster"
 
 class ClusterDrainCmd(_ClusterNodetoolCmd):
-    usage = "usage: ccm cluster drain [options] name"
+    usage = "usage: ccm drain [options] name"
     nodetool_cmd = 'drain'
     descr_text = "Drain all (running) node of the cluster"
 
