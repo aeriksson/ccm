@@ -54,9 +54,9 @@ class ClusterCreateCmd(Cmd):
         parser.add_option('-p', '--partitioner', type="string", dest="partitioner",
             help="Set the cluster partitioner class")
         parser.add_option('-v', "--cassandra-version", type="string", dest="cassandra_version",
-            help="Download and use provided cassandra version. If version is of the form 'git:<branch name>', then the specified branch will be downloaded from the git repo and compiled. (takes precedence over --cassandra-dir)", default=None)
+            help="Download and use provided Cassandra version. If version is of the form 'git:<branch name>', then the specified branch will be downloaded from the git repo and compiled. (takes precedence over --cassandra-dir)", default=None)
         parser.add_option("--cassandra-dir", type="string", dest="cassandra_dir",
-            help="Path to the cassandra directory to use [default %default]", default="./")
+            help="Path to the Cassandra directory to use [default %default]", default="./")
         parser.add_option('-n', '--nodes', type="string", dest="nodes",
             help="Populate the new cluster with that number of nodes (a single int or a colon-separate list of ints for multi-dc setups)")
         parser.add_option('-i', '--ipprefix', type="string", dest="ipprefix", default="127.0.0.",
@@ -76,9 +76,9 @@ class ClusterCreateCmd(Cmd):
         parser.add_option('--jvm_arg', action="append", dest="jvm_args",
             help="Specify a JVM argument", default=[])
         parser.add_option('--profile', action="store_true", dest="profile",
-            help="Start the nodes with yourkit agent (only valid with -s)", default=False)
+            help="Start the nodes with YourKit agent (only valid with -s)", default=False)
         parser.add_option('--profile-opts', type="string", action="store", dest="profile_options",
-            help="Yourkit options when profiling", default=None)
+            help="YourKit options when profiling", default=None)
         return parser
 
     def validate(self, parser, options, args):
@@ -153,7 +153,7 @@ class ClusterAddCmd(Cmd):
         parser.add_option('-j', '--jmx-port', type="string", dest="jmx_port",
             help="JMX port for the node", default="7199")
         parser.add_option('-r', '--remote-debug-port', type="string", dest="remote_debug_port",
-            help="Remote Debugging Port for the node", default="2000")
+            help="Remote debugging port for the node", default="2000")
         parser.add_option('-n', '--token', type="string", dest="initial_token",
             help="Initial token for the node", default=None)
         parser.add_option('-d', '--data-center', type="string", dest="data_center",
@@ -164,7 +164,7 @@ class ClusterAddCmd(Cmd):
         Cmd.validate(self, parser, options, args, node_name=True, load_cluster=True, load_node=False)
 
         if options.itfs is None and (options.thrift_itf is None or options.storage_itf is None or options.binary_itf is None):
-            print_('Missing thrift and/or storage and/or binary protocol interfaces or jmx port', file=sys.stderr)
+            print_('Missing thrift and/or storage and/or binary protocol interfaces or JMX port', file=sys.stderr)
             parser.print_help()
             exit(1)
 
@@ -211,7 +211,7 @@ class ClusterPopulateCmd(Cmd):
         parser.add_option('--vnodes', action="store_true", dest="vnodes",
             help="Populate using vnodes", default=False)
         parser.add_option('-i', '--ipprefix', type="string", dest="ipprefix", default="127.0.0.",
-            help="Ipprefix to use to create the ip of a node")
+            help="IP prefix to use to create the ip of a node")
         return parser
 
     def validate(self, parser, options, args):
@@ -355,15 +355,15 @@ class ClusterLivesetCmd(Cmd):
 
 class ClusterSetdirCmd(Cmd):
     def description(self):
-        return "Set the cassandra directory to use"
+        return "Set the Cassandra directory to use"
 
     def get_parser(self):
         usage = "usage: ccm setdir [options]"
         parser =  self._get_default_parser(usage, self.description())
         parser.add_option('-v', "--cassandra-version", type="string", dest="cassandra_version",
-            help="Download and use provided cassandra version. If version is of the form 'git:<branch name>', then the specified branch will be downloaded from the git repo and compiled. (takes precedence over --cassandra-dir)", default=None)
+            help="Download and use provided Cassandra version. If version is of the form 'git:<branch name>', then the specified branch will be downloaded from the git repo and compiled. (takes precedence over --cassandra-dir)", default=None)
         parser.add_option("--cassandra-dir", type="string", dest="cassandra_dir",
-            help="Path to the cassandra directory to use [default %default]", default="./")
+            help="Path to the Cassandra directory to use [default %default]", default="./")
         return parser
 
     def validate(self, parser, options, args):
@@ -399,15 +399,15 @@ class ClusterStartCmd(Cmd):
         usage = "usage: ccm cluster start [options]"
         parser =  self._get_default_parser(usage, self.description())
         parser.add_option('-v', '--verbose', action="store_true", dest="verbose",
-            help="Print standard output of cassandra process", default=False)
+            help="Print standard output of Cassandra process", default=False)
         parser.add_option('--no-wait', action="store_true", dest="no_wait",
-            help="Do not wait for cassandra node to be ready", default=False)
+            help="Do not wait for Cassandra node to be ready", default=False)
         parser.add_option('--jvm_arg', action="append", dest="jvm_args",
             help="Specify a JVM argument", default=[])
         parser.add_option('--profile', action="store_true", dest="profile",
-            help="Start the nodes with yourkit agent (only valid with -s)", default=False)
+            help="Start the nodes with YourKit agent (only valid with -s)", default=False)
         parser.add_option('--profile-opts', type="string", action="store", dest="profile_options",
-            help="Yourkit options when profiling", default=None)
+            help="YourKit options when profiling", default=None)
         return parser
 
     def validate(self, parser, options, args):
@@ -514,7 +514,7 @@ class ClusterStressCmd(Cmd):
 
 class ClusterUpdateconfCmd(Cmd):
     def description(self):
-        return "Update the cassandra config files for all nodes"
+        return "Update the Cassandra config files for all nodes"
 
     def get_parser(self):
         usage = "usage: ccm updateconf [options] [ new_setting | ...  ], where new_setting should be a string of the form 'compaction_throughput_mb_per_sec: 32'"
@@ -524,7 +524,7 @@ class ClusterUpdateconfCmd(Cmd):
         parser.add_option('--batch-cl', '--batch-commit-log', action="store_true",
             dest="cl_batch", default=False, help="Set commit log to batch mode")
         parser.add_option('--rt', '--rpc-timeout', action="store", type='int',
-            dest="rpc_timeout", help="Set rpc timeout")
+            dest="rpc_timeout", help="Set RPC timeout")
         return parser
 
     def validate(self, parser, options, args):
@@ -587,7 +587,7 @@ class ClusterUpdatelog4jCmd(Cmd):
 
 class ClusterCliCmd(Cmd):
     def description(self):
-        return "Launch cassandra cli connected to some live node (if any)"
+        return "Launch Cassandra CLI connected to some live node (if any)"
 
     def get_parser(self):
         usage = "usage: ccm cli [options] [cli_options]"
@@ -595,7 +595,7 @@ class ClusterCliCmd(Cmd):
         parser.add_option('-x', '--exec', type="string", dest="cmds", default=None,
             help="Execute the specified commands and exit")
         parser.add_option('-v', '--verbose', action="store_true", dest="verbose",
-            help="With --exec, show cli output after completion", default=False)
+            help="With --exec, show CLI output after completion", default=False)
         return parser
 
     def validate(self, parser, options, args):
@@ -646,7 +646,7 @@ class ClusterSetlogCmd(Cmd):
         usage = "usage: ccm setlog [options] level"
         parser = self._get_default_parser(usage, self.description())
         parser.add_option('-c', '--class', type="string", dest="class_name", default=None,
-            help="Optional java class/package. Logging will be set for only this class/package if set")
+            help="Optional Java class/package. Logging will be set for only this class/package if set")
         return parser
 
 
